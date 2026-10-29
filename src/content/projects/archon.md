@@ -1,11 +1,11 @@
 ---
 title: Archon
 order: 1
-badge: Fine-tuned
+badge: Knowledge distilled
 summary: A design-review sparring partner distilled into Qwen3-8B with QLoRA, small enough to run on an 8 GB laptop GPU. Judged blind against the base model and on benchmarks, with the honest result that it learned the style but lost accuracy.
 meta: Python · 2026
 repo: https://github.com/aniyow07/Archonn
-tags: [Python, QLoRA, Qwen3-8B, LLM evaluation]
+tags: [Python, Knowledge distillation, QLoRA, Qwen3-8B, LLM evaluation]
 media: { kind: image, src: /media/archon-accuracy.png, alt: "Benchmark accuracy chart, Archon vs the base model", layout: center }
 ---
 
@@ -15,7 +15,8 @@ I wanted a model that pushes back on software designs the way a senior reviewer 
 
 ## How it works
 
-- Fine-tuned Qwen3-8B with QLoRA on a 24 GB NVIDIA L4. The quantized Q4_K_M build runs on an 8 GB laptop GPU at about 42 tokens per second.
+- Knowledge distillation: a larger Qwen 32B teacher wrote step-by-step reasoning for each answer in the training chats, and the smaller student learned from it.
+- Fine-tuned the Qwen3-8B student with QLoRA on a 24 GB NVIDIA L4. The quantized Q4_K_M build runs on an 8 GB laptop GPU at about 42 tokens per second.
 - Compared it with the base model in blind pairwise chats, where the judge doesn't know which answer came from which model.
 - Ran standard benchmarks on both: MMLU, ARC-Challenge, GSM8K and IFEval.
 
