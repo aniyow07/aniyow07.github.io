@@ -9,7 +9,7 @@ if (!still) {
       else v.pause();
     }
   }, { threshold: 0.25 });
-  document.querySelectorAll<HTMLVideoElement>('.card video').forEach((v) => io.observe(v));
+  document.querySelectorAll<HTMLVideoElement>('.card video, .writeup .media video:not([controls])').forEach((v) => io.observe(v));
 
   const lines = document.querySelectorAll('.rot h2');
   let i = 0;

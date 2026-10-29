@@ -1,0 +1,37 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Media from '../../components/Media.astro';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const { title, summary, tags, repo, media, fullVideo } = project.data;
+const { Content } = await render(project);
+---
+<Base title={`${title} | ${site.name}`} description={summary}>
+  <main class="wrap writeup">
+    <a class="back" href="/">All projects</a>
+    <h1>{title}</h1>
+    <p class="lede">{summary}</p>
+    <ul class="tags">{tags.map((t) => <li>{t}</li>)}</ul>
+    {fullVideo ? (
+      <div class="media full">
+        <video src={fullVideo} poster={media.poster} controls playsinline preload="metadata"></video>
+      </div>
+    ) : (
+      <Media media={media} />
+    )}
+    <div class="body"><Content /></div>
+    <a class="gh" href={repo}>View on GitHub</a>
+  </main>
+</Base>
+
+<script>
+  import '../../scripts/autoplay';
+</script>
