@@ -1,0 +1,19 @@
+:root {
+  --bg: #ffffff; --ink: #212529; --head: #000; --grey: rgba(0, 0, 0, .4); --line: rgba(0, 0, 0, .12);
+  --tile: #111111; --tile-ink: #ffffff; --pill: rgba(200, 200, 200, .63); --navc: #898989;
+}
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 500 16px/1.5 Manrope, sans-serif; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 8px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+nav { position: sticky; top: 0; z-index: 10; }
+nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+.logo { width: 40px; height: 40px; border-radius: 50%; background: #000; color: #fff; display: grid; place-items: center; font: 900 16px Nunito; }
+.links { display: flex; gap: 8px; background: color-mix(in srgb, var(--bg) 75%, transparent); backdrop-filter: blur(8px); border-radius: 100px; }
+.links a { font: 700 18px Manrope; color: var(--navc); padding: 8px 16px; border-radius: 100px; }
+.links a.on { color: var(--head); background: var(--pill); }
+.links a:hover { color: var(--head); }
+
+@media (max-width: 900px) { .links a { font-size: 16px; padding: 8px 12px; } .wrap { padding: 0 20px; } }
