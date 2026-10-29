@@ -3,7 +3,7 @@ import { site } from '../src/data/site';
 
 test('hero', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('h1')).toHaveText("Hello, I'm Ani");
+  await expect(page.locator('h1')).toHaveText("Hello, I'm Sai Anirudh");
   const visible = await page.locator('.rot h2.on').textContent();
   expect(site.lines).toContain(visible?.trim());
   await expect(page.getByText('Looking for', { exact: true })).toBeVisible();
