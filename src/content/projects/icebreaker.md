@@ -6,7 +6,7 @@ summary: Makes a 2013 Android game run on modern 64-bit phones without changing 
 meta: C++ · 2026
 repo: https://github.com/aniyow07/IceBreaker
 tags: [C++, Emulation, Android, JIT]
-media: { kind: type, text: "ARMv5 → AArch64" }
+media: { kind: video, src: /media/icebreaker.mp4, poster: /media/icebreaker-poster.jpg, alt: "Icebreaker: A Viking Voyage running on a 64-bit phone", layout: center }
 ---
 
 ## The problem
@@ -22,3 +22,5 @@ Old Android games ship 32-bit ARM libraries, and many newer phones can't run 32-
 ## Results
 
 The original, unmodified library runs on a Samsung Galaxy S23 with Android 16, the one device tested so far.
+
+The clip shows the game running this way on that phone. Icebreaker: A Viking Voyage is © Nitrome; footage is shown only to demonstrate the compatibility layer.
