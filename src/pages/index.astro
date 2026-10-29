@@ -1,7 +1,19 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 ---
 <Base title={`${site.name} | AI/ML engineer portfolio`} description="Projects in LLMs, agents, computer vision and fast tools.">
-  <main class="wrap"></main>
+  <main class="wrap">
+    <section id="work">
+      {projects.map((p) => (
+        <a class="card" href={`/work/${p.id}/`}>
+          <h3>{p.data.title}<span class="badge">{p.data.badge}</span></h3>
+          <p>{p.data.summary}</p>
+        </a>
+      ))}
+    </section>
+  </main>
 </Base>
