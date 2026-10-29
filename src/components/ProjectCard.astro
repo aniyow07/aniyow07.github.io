@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Media from './Media.astro';
+
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const { title, badge, summary, meta, media } = project.data;
+---
+<a class="card" href={`/work/${project.id}/`}>
+  <Media media={media} />
+  <h3>{title}<span class="badge">{badge}</span></h3>
+  <p>{summary}</p>
+  <div class="meta">{meta}</div>
+</a>

@@ -1,19 +1,22 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import { site } from '../data/site';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 ---
 <Base title={`${site.name} | AI/ML engineer portfolio`} description="Projects in LLMs, agents, computer vision and fast tools.">
   <main class="wrap">
-    <section id="work">
-      {projects.map((p) => (
-        <a class="card" href={`/work/${p.id}/`}>
-          <h3>{p.data.title}<span class="badge">{p.data.badge}</span></h3>
-          <p>{p.data.summary}</p>
-        </a>
-      ))}
+    <Hero />
+    <section class="grid" id="work">
+      {projects.map((p) => <ProjectCard project={p} />)}
     </section>
   </main>
+  <footer><div class="wrap">© 2026 {site.name}</div></footer>
 </Base>
+
+<script>
+  import '../scripts/autoplay';
+</script>

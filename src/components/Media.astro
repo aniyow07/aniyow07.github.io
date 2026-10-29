@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { media: CollectionEntry<'projects'>['data']['media'] }
+const { media } = Astro.props;
+const layout = media.layout ?? 'center';
+---
+<div class="media">
+  {media.kind === 'video' && (
+    <video class={layout} src={media.src} poster={media.poster} aria-label={media.alt}
+      muted loop playsinline preload="none"></video>
+  )}
+  {media.kind === 'image' && <img class={layout} src={media.src} alt={media.alt} loading="lazy" />}
+  {media.kind === 'pair' && (
+    <figure class="pair">
+      <img src={media.src} alt="Original image" loading="lazy" />
+      <img src={media.src2} alt="Reconstructed image" loading="lazy" />
+    </figure>
+  )}
+  {media.kind === 'type' && <div class="type">{media.text}</div>}
+</div>
