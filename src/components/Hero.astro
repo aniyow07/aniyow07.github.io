@@ -4,8 +4,8 @@ import { site } from '../data/site';
 <section class="hero">
   <div class="hero-l">
     <h1>Hello, I'm {site.name}</h1>
-    <div class="rot" aria-live="off">
-      {site.lines.map((line, i) => <h2 class:list={[{ on: i === 0 }]}>{line}</h2>)}
+    <div class="rot">
+      {site.lines.map((line, i) => <h2 class:list={[{ on: i === 0 }]} aria-hidden={i === 0 ? undefined : 'true'}>{line}</h2>)}
     </div>
     <div class="now">
       <div><h3>Looking for</h3><p>{site.lookingFor}</p></div>

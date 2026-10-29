@@ -15,7 +15,7 @@ Primes look random, but the gaps between them have patterns. I wanted to generat
 
 ## How it works
 
-- A Sieve of Eratosthenes in C++ finds every prime up to 2,000,000 and records the gap to the next one.
+- A Sieve of Eratosthenes in C++ finds every prime up to 2,000,000 and records the gap from the previous one.
 - A Streamlit dashboard plots the distribution of gaps and draws the primes on an Ulam spiral.
 
 ## Results

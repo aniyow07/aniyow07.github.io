@@ -16,8 +16,13 @@ if (!still) {
   if (lines.length > 1) {
     setInterval(() => {
       lines[i].classList.remove('on');
+      lines[i].setAttribute('aria-hidden', 'true');
       i = (i + 1) % lines.length;
       lines[i].classList.add('on');
+      lines[i].removeAttribute('aria-hidden');
     }, 3000);
   }
+} else {
+  // Nothing autoplays, so give write-up clips controls to play them by hand.
+  document.querySelectorAll<HTMLVideoElement>('.writeup .media video').forEach((v) => { v.controls = true; });
 }

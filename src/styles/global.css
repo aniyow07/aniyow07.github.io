@@ -21,8 +21,8 @@ nav .wrap { display: flex; justify-content: space-between; align-items: center; 
 .hero { display: grid; grid-template-columns: 1fr 300px; padding-top: 40px; }
 .hero-l { padding: 64px 48px 48px 0; border-right: 1px solid var(--line); min-width: 0; }
 h1 { font: 900 64px/1.2 Nunito, sans-serif; letter-spacing: -.01em; color: var(--head); }
-.rot { position: relative; height: 154px; margin-top: 4px; }
-.rot h2 { position: absolute; inset: 0; font: 800 64px/1.2 Manrope, sans-serif; letter-spacing: -.02em; color: var(--grey);
+.rot { display: grid; margin-top: 4px; }
+.rot h2 { grid-area: 1 / 1; font: 800 64px/1.2 Manrope, sans-serif; letter-spacing: -.02em; color: var(--grey);
           opacity: 0; filter: blur(12px); transition: opacity .8s, filter .8s; }
 .rot h2.on { opacity: 1; filter: none; }
 .now { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 72px; }
@@ -57,11 +57,11 @@ footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--g
 
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; } .hero-l { border: 0; padding: 32px 0 0; } .side { padding: 40px 0 0; }
-  h1, .rot h2 { font-size: 44px; } .rot { height: 110px; } .now { margin-top: 40px; }
+  h1, .rot h2 { font-size: 44px; } .now { margin-top: 40px; }
   .grid { grid-template-columns: 1fr; gap: 56px; }
 }
 @media (max-width: 480px) {
-  h1, .rot h2 { font-size: 36px; } .rot { height: 92px; } .now { grid-template-columns: 1fr; }
+  h1, .rot h2 { font-size: 36px; } .now { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   .rot h2 { transition: none; }

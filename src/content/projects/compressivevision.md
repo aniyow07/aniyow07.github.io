@@ -2,7 +2,7 @@
 title: CompressiveVision
 order: 5
 badge: Research
-summary: Rebuilds images from compressed measurements with WGAN-GP, CBAM attention and DnCNN refinement, and encrypts the measurements in transit.
+summary: Rebuilds images from compressed measurements with WGAN-GP, CBAM attention and DnCNN refinement, and encrypts the measurements over a simulated channel.
 meta: Python · 2026
 repo: https://github.com/Aniyow/CompressiveVision
 tags: [Python, Deep learning, Compressive sensing]
@@ -17,8 +17,8 @@ Compressive sensing captures far fewer measurements than pixels. The hard part i
 
 - Images are split into 16×16 blocks and sampled at a 50% measurement rate.
 - A WGAN-GP generator with CBAM attention rebuilds the image, and a DnCNN pass removes leftover noise.
-- The measurements are encrypted in transit.
+- The measurements are encrypted over a simulated transmission channel.
 
 ## Results
 
-The full pipeline reaches a PSNR of 24.17 dB and an SSIM of 0.765, up from 23.22 dB and 0.735 for the comparison setup. The tile shows an original image beside its reconstruction.
+The full pipeline reaches a PSNR of 24.17 dB and an SSIM of 0.765, up from 23.38 dB and 0.739 for the plain WGAN-GP baseline. The tile shows an original image beside its reconstruction.
