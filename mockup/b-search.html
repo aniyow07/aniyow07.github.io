@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ani — Direction B: Searchable work</title>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f5f5f7; --ink:#16181d; --muted:#626774; --violet:#5b4bdb; --chip:#eceafb; --panel:#fff; --line:#e2e2e8; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font:16px/1.55 "Schibsted Grotesk", sans-serif; }
+  a { color:inherit; }
+  :focus-visible { outline:3px solid var(--violet); outline-offset:2px; }
+  .wrap { max-width:1180px; margin:0 auto; padding:0 24px; }
+  header .wrap { display:flex; justify-content:space-between; align-items:center; padding-top:26px; }
+  .me { font-weight:900; font-size:20px; text-decoration:none; }
+  header nav a { margin-left:22px; text-decoration:none; color:var(--muted); font-weight:500; }
+
+  .hero { padding:72px 0 36px; max-width:900px; }
+  h1 { font-weight:900; font-size:clamp(40px,6.2vw,80px); line-height:.98; letter-spacing:-0.04em; }
+  .sub { margin-top:22px; font-size:20px; color:var(--muted); max-width:52ch; }
+
+  .search { margin-top:40px; display:flex; align-items:center; gap:14px; background:var(--panel); border-radius:16px;
+            padding:6px 8px 6px 22px; box-shadow:0 0 0 1px var(--line), 0 24px 50px -30px #16181d55; }
+  .search svg { flex:none; }
+  .search input { flex:1; border:0; outline:0; font:500 22px "Schibsted Grotesk"; padding:16px 0; background:transparent; color:var(--ink); }
+  .search kbd { font:500 13px "Schibsted Grotesk"; color:var(--muted); border:1px solid var(--line); border-radius:6px; padding:4px 8px; margin-right:10px; }
+  .hints { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .hints button { border:0; background:var(--chip); color:var(--violet); font:500 14px "Schibsted Grotesk"; padding:6px 12px; border-radius:999px; cursor:pointer; }
+
+  .browser { display:grid; grid-template-columns:400px 1fr; gap:20px; margin:28px 0 80px; align-items:start; }
+  .list { background:var(--panel); border-radius:16px; box-shadow:0 0 0 1px var(--line); padding:8px; }
+  .item { display:block; width:100%; text-align:left; border:0; background:none; font:inherit; color:inherit; padding:14px 16px; border-radius:10px; cursor:pointer; }
+  .item:hover { background:#f3f2fb; }
+  .item[aria-selected=true] { background:var(--violet); color:#fff; }
+  .item b { display:block; font-size:17px; }
+  .item span { font-size:14px; color:var(--muted); }
+  .item[aria-selected=true] span { color:#dcd8ff; }
+  .empty { padding:24px 16px; color:var(--muted); }
+
+  .preview { background:var(--panel); border-radius:16px; box-shadow:0 0 0 1px var(--line); overflow:hidden; position:sticky; top:20px; }
+  .pmedia { aspect-ratio:16/10; display:grid; place-items:center; background:#1d2033; }
+  .pmedia video { width:100%; height:100%; object-fit:cover; }
+  .pmedia.tall video { width:auto; height:94%; border-radius:8px; }
+  .pmedia .big { color:#fff; font-weight:900; font-size:clamp(30px,4vw,54px); letter-spacing:-0.03em; padding:32px; text-align:center; }
+  .pbody { padding:28px 30px 32px; }
+  .pbody h2 { font-weight:900; font-size:36px; letter-spacing:-0.03em; }
+  .result { font-weight:700; font-size:20px; color:var(--violet); margin:6px 0 14px; }
+  .pbody p { color:var(--muted); max-width:60ch; }
+  .chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; }
+  .chips span { background:var(--bg); border-radius:6px; padding:4px 10px; font-size:14px; }
+  .gh { display:inline-block; margin-top:24px; background:var(--ink); color:#fff; text-decoration:none; font-weight:700; padding:12px 20px; border-radius:10px; }
+
+  @media (max-width:880px) { .browser { grid-template-columns:1fr; } .preview { position:static; order:-1; } }
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="me" href="#">Ani</a><nav><a href="#">About</a><a href="#">Resume</a><a href="#">GitHub</a></nav></div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>I build AI tools you can actually run.</h1>
+    <p class="sub">Engineering student looking for AI/ML and GenAI internships. Search my projects the way my tools search your files.</p>
+    <label class="search">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#626774" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <input id="q" type="search" placeholder="Search projects, like llm, rust or agents" aria-label="Search projects" autocomplete="off">
+      <kbd>/</kbd>
+    </label>
+    <div class="hints"><button>llm</button><button>agents</button><button>rust</button><button>privacy</button><button>vision</button></div>
+  </section>
+
+  <section class="browser">
+    <div class="list" id="list" role="listbox" aria-label="Projects"></div>
+    <article class="preview" id="preview" aria-live="polite"></article>
+  </section>
+</main>
+
+<script>
+const P = [
+  { n:"Archon", s:"Fine-tuned Qwen3-8B design reviewer", r:"Learned the style, lost accuracy, and measured both", t:["Python","QLoRA","Qwen3-8B","Ollama"], k:"llm genai fine-tune eval",
+    d:"A sparring partner for system design and ML plans, trained with QLoRA on an 8 GB GPU and compared blind against the base model. The results are reported honestly, including where it fell short.", big:"Qwen3-8B → Archon" },
+  { n:"AgentReel", s:"Seven agents turn a brief into a video", r:"Brief in, narrated video out, every claim sourced", t:["Python","Multi-agent","Manim","Remotion"], k:"agents genai llm video",
+    d:"Agents plan, research, write, storyboard, voice, edit and check a short video. Narration runs locally on the GPU, and about 30 checks send failures back to the stage that caused them.", v:"agentreel-loop", tall:1 },
+  { n:"Winsearch", s:"Instant filename search for Windows", r:"1 to 30 ms over 1.6 million files", t:["Rust","SQLite","Win32"], k:"rust tools search",
+    d:"Keeps its own index of names in SQLite so a search never scans the disk, with a preview pane for PDFs, Office files, images and code. Fully local, no admin rights.", v:"winsearch" },
+  { n:"Halo", s:"Circle to Search for the desktop", r:"Drag over anything, Gemini answers in place", t:["Rust","Tauri","React","Gemini"], k:"rust genai llm vision tools",
+    d:"A hotkey freezes the screen, you select a region, and Gemini's answer streams into a panel beside it. Follow-up questions keep the same region in context.", v:"halo" },
+  { n:"CompressiveVision", s:"Image reconstruction from compressed measurements", r:"Works at a 50% measurement rate", t:["PyTorch","WGAN-GP","CBAM","DnCNN"], k:"vision gan ml",
+    d:"Reconstructs images from compressed sensing measurements and encrypts the measurements during a simulated transmission." , big:"WGAN-GP + CBAM + DnCNN" },
+  { n:"PrivacyGuard ML", s:"Membership inference vs differential privacy", r:"4 privacy levels, 3 seeds each", t:["PyTorch","Opacus","CIFAR-10"], k:"privacy ml security",
+    d:"Attacks a CIFAR-10 model to tell whether an image was in its training set, then measures how much DP-SGD reduces that risk and what it costs in accuracy.", big:"Can a model leak its training data?" },
+  { n:"IceBreaker", s:"Preservation port of a 2013 Android game", r:"Original 32-bit code running on 64-bit phones", t:["C++","dynarmic","JNI"], k:"systems c++ emulation",
+    d:"Runs the game's unmodified 32-bit ARM libraries inside an ARM to AArch64 JIT, with 267 imports reimplemented. No game files are included.", big:"ARMv5 → AArch64" },
+  { n:"Cosmic Relay", s:"Karaoke game with AI vocal feedback", r:"Record takes by section, combine the best", t:["Python","Audio"], k:"audio genai",
+    d:"Sing a song section by section, record takes, stitch them together, and get vocal analysis and AI feedback.", big:"Sing it in sections" },
+  { n:"Solar fault detection", s:"Faulty solar panel classifier", r:"Ensemble of three CNNs", t:["DenseNet","EfficientNet","ResNet"], k:"vision ml cnn",
+    d:"Combines three pretrained CNNs to classify faulty solar panels from images.", big:"3-model CNN ensemble" },
+  { n:"AQI forecasting", s:"Air quality forecasting", r:"Hybrid Random Forest and ARIMA", t:["Python","scikit-learn","ARIMA"], k:"ml forecasting time-series",
+    d:"Forecasts the air quality index by combining a Random Forest with an ARIMA model.", big:"Random Forest + ARIMA" }
+];
+const list = document.getElementById('list'), prev = document.getElementById('preview'), q = document.getElementById('q');
+let sel = 0;
+function show(i){
+  sel = i; const p = P[i];
+  list.querySelectorAll('.item').forEach(b => b.setAttribute('aria-selected', +b.dataset.i === i));
+  const media = p.v ? `<div class="pmedia ${p.tall?'tall':''}"><video src="../../assets/web/${p.v}.mp4" poster="../../assets/web/${p.v.replace('-loop','')}-poster.jpg" autoplay muted loop playsinline></video></div>`
+                    : `<div class="pmedia"><div class="big">${p.big}</div></div>`;
+  prev.innerHTML = `${media}<div class="pbody"><h2>${p.n}</h2><div class="result">${p.r}</div><p>${p.d}</p>
+    <div class="chips">${p.t.map(x=>`<span>${x}</span>`).join('')}</div><a class="gh" href="#">Open on GitHub</a></div>`;
+}
+function render(){
+  const term = q.value.trim().toLowerCase();
+  const hits = P.map((p,i)=>[p,i]).filter(([p]) => !term || (p.n+' '+p.s+' '+p.k+' '+p.t.join(' ')).toLowerCase().includes(term));
+  list.innerHTML = hits.length ? hits.map(([p,i]) => `<button class="item" role="option" data-i="${i}"><b>${p.n}</b><span>${p.s}</span></button>`).join('')
+                               : `<div class="empty">No project matches "${q.value}". Try llm, rust or vision.</div>`;
+  list.querySelectorAll('.item').forEach(b => b.onclick = () => show(+b.dataset.i));
+  if (hits.length) show(hits.some(([,i]) => i === sel) ? sel : hits[0][1]);
+}
+q.oninput = render;
+document.querySelectorAll('.hints button').forEach(b => b.onclick = () => { q.value = b.textContent; render(); });
+addEventListener('keydown', e => { if (e.key === '/' && document.activeElement !== q) { e.preventDefault(); q.focus(); } });
+render();
+</script>
+</body>
+</html>

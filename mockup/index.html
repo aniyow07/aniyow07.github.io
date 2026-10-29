@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ani — Portfolio mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f0e9; --ink: #18181a; --muted: #6b6860; --line: #dcd7cb;
+    --card: #fbfaf6; --accent: #3b5bdb;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.55 Inter, system-ui, sans-serif; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  nav { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 85%, transparent);
+        backdrop-filter: blur(8px); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 72px; }
+  .logo { width: 40px; height: 40px; border-radius: 12px; background: var(--ink); color: var(--bg);
+          display: grid; place-items: center; font: 800 18px "Inter Tight"; }
+  .pills a { font: 500 14px Inter; color: var(--muted); text-decoration: none; padding: 7px 14px; border-radius: 999px; }
+  .pills a.on, .pills a:hover { background: #e3dfd4; color: var(--ink); }
+
+  .hero { display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; padding: 72px 0 64px; border-bottom: 1px solid var(--line); }
+  h1 { font: 800 clamp(44px, 7vw, 76px)/1.02 "Inter Tight"; letter-spacing: -0.03em; }
+  .rotator { font: 700 clamp(28px, 4.4vw, 46px)/1.1 "Inter Tight"; letter-spacing: -0.02em; color: #b9b4a8;
+             height: 2.3em; margin-top: 18px; overflow: hidden; }
+  .rotator span { display: block; height: 2.3em; animation: rot 12s infinite; }
+  .rotator b { color: var(--ink); font-weight: 700; }
+  @keyframes rot { 0%,22% {transform: translateY(0)} 25%,47% {transform: translateY(-100%)}
+                   50%,72% {transform: translateY(-200%)} 75%,97% {transform: translateY(-300%)} 100% {transform: translateY(0)} }
+  .now { display: flex; gap: 48px; margin-top: 36px; font-size: 15px; }
+  .now div b { display: block; font-weight: 500; }
+  .now div span { color: var(--muted); }
+  .side { border-left: 1px solid var(--line); padding-left: 40px; align-self: center; }
+  .avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #3b5bdb, #f08c4a);
+            margin-bottom: 18px; }
+  .side h3 { font: 600 17px Inter; margin-bottom: 6px; }
+  .side p { color: var(--muted); }
+  .links { display: flex; gap: 14px; margin-top: 16px; font: 500 14px Inter; }
+  .links a { color: var(--ink); }
+
+  .label { font: 500 12px "JetBrains Mono"; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+           margin: 56px 0 20px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+  .card { cursor: pointer; }
+  .tile { aspect-ratio: 16/10; border-radius: 18px; overflow: hidden; display: grid; place-items: center;
+          transition: transform .25s; }
+  .card:hover .tile { transform: translateY(-4px); }
+  .tile video { width: 100%; height: 100%; object-fit: cover; }
+  .tile.tall video { width: auto; height: 92%; border-radius: 10px; box-shadow: 0 10px 30px #0006; }
+  .tile.inset video { width: 88%; height: auto; border-radius: 10px; box-shadow: 0 10px 30px #0004; }
+  .card h2 { font: 700 22px "Inter Tight"; margin: 18px 0 6px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .tag { font: 500 11px "JetBrains Mono"; letter-spacing: .04em; color: var(--accent); background: #e4e8fb;
+         padding: 4px 9px; border-radius: 999px; }
+  .card p { color: var(--muted); }
+  .meta { font-size: 14px; margin-top: 8px; font-weight: 500; }
+
+  .small { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .mini { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; cursor: pointer;
+          transition: border-color .2s, transform .2s; }
+  .mini:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .mini h4 { font: 700 18px "Inter Tight"; margin: 10px 0 4px; }
+  .mini p { color: var(--muted); font-size: 14px; }
+  .mini .meta { color: var(--ink); font-size: 13px; }
+
+  footer { color: var(--muted); font-size: 14px; padding: 64px 0 40px; border-top: 1px solid var(--line); margin-top: 72px; }
+
+  /* write-up view */
+  #writeup { display: none; max-width: 760px; margin: 0 auto; padding: 40px 24px 80px; }
+  body.reading #home { display: none; } body.reading #writeup { display: block; }
+  .back { font: 500 14px Inter; color: var(--muted); cursor: pointer; }
+  #writeup h1 { font-size: 56px; margin: 18px 0 10px; }
+  #writeup .lede { font-size: 20px; color: var(--muted); }
+  #writeup .tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 28px; }
+  #writeup video { width: 100%; border-radius: 14px; }
+  #writeup h3 { font: 700 20px "Inter Tight"; margin: 32px 0 8px; }
+  #writeup ul { padding-left: 20px; } #writeup li { margin: 4px 0; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+  .stat b { font: 800 28px "Inter Tight"; display: block; }
+  .stat span { color: var(--muted); font-size: 14px; }
+  .gh { display: inline-block; margin-top: 36px; background: var(--ink); color: var(--bg); text-decoration: none;
+        font: 600 16px Inter; padding: 14px 24px; border-radius: 999px; }
+
+  @media (max-width: 760px) {
+    .hero, .grid { grid-template-columns: 1fr; } .side { border: 0; padding: 0; }
+    .small, .stats { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { .rotator span { animation: none; } }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <div class="logo">A.</div>
+  <div class="pills"><a class="on" href="#">Work</a><a href="#">About</a><a href="#">Resume</a></div>
+</div></nav>
+
+<main id="home" class="wrap">
+  <section class="hero">
+    <div>
+      <h1>Hello, I'm Ani</h1>
+      <div class="rotator"><span>I fine-tune <b>LLMs</b><br>and test them honestly</span><span>I build <b>multi-agent</b><br>GenAI pipelines</span><span>I write <b>fast Rust</b><br>tools for real users</span><span>I break models to<br>make them <b>private</b></span></div>
+      <div class="now">
+        <div><b>Looking for</b><span>AI/ML &amp; GenAI internships</span></div>
+        <div><b>Building with</b><span>PyTorch, Qwen, Gemini, Rust</span></div>
+      </div>
+    </div>
+    <aside class="side">
+      <div class="avatar"></div>
+      <h3>Nice to meet you</h3>
+      <p>I'm an engineering student who likes taking ML ideas all the way to something that runs: fine-tunes with real evals, agent pipelines that ship videos, and desktop tools people actually use.</p>
+      <div class="links"><a href="#">GitHub</a><a href="#">LinkedIn</a><a href="#">Email</a></div>
+    </aside>
+  </section>
+
+  <div class="label">Featured work</div>
+  <section class="grid">
+    <article class="card">
+      <div class="tile" style="background:#1f2440">
+        <svg viewBox="0 0 520 300" width="88%" font-family="JetBrains Mono" font-size="15">
+          <g fill="none" stroke="#7d8fe8" stroke-width="2">
+            <rect x="10" y="120" width="110" height="56" rx="12"/><rect x="150" y="120" width="110" height="56" rx="12"/>
+            <rect x="290" y="120" width="110" height="56" rx="12"/><rect x="420" y="40" width="90" height="56" rx="12"/>
+            <rect x="420" y="200" width="90" height="56" rx="12"/>
+            <path d="M120 148h30M260 148h30M400 148c10 0 10-80 20-80M400 148c10 0 10 80 20 80"/>
+          </g>
+          <g fill="#e8ebff" text-anchor="middle"><text x="65" y="153">data</text><text x="205" y="153">QLoRA</text>
+            <text x="345" y="153">blind eval</text><text x="465" y="73">bench</text><text x="465" y="233">Ollama</text></g>
+          <text x="10" y="40" fill="#f6c453" font-size="22" font-family="Inter Tight" font-weight="700">Qwen3-8B → Archon</text>
+          <text x="10" y="64" fill="#9aa3c7">8 GB VRAM · short thinking traces</text>
+        </svg>
+      </div>
+      <h2>Archon <span class="tag">QLORA · QWEN3-8B</span></h2>
+      <p>A fine-tuned "sparring partner" that reviews system design and ML plans, evaluated blind against the base model, with honest results.</p>
+      <div class="meta">Python · 2026</div>
+    </article>
+
+    <article class="card">
+      <div class="tile tall" style="background:#0f1530"><video src="../../assets/web/agentreel-loop.mp4" poster="../../assets/web/agentreel-poster.jpg" autoplay muted loop playsinline></video></div>
+      <h2>AgentReel <span class="tag">7 AGENTS</span></h2>
+      <p>Seven AI agents turn a topic or brief into a finished, source-grounded short video, voiced and rendered locally.</p>
+      <div class="meta">Python · 2026</div>
+    </article>
+
+    <article class="card" onclick="openWriteup()">
+      <div class="tile inset" style="background:#d9e2ff"><video src="../../assets/web/winsearch.mp4" poster="../../assets/web/winsearch-poster.jpg" autoplay muted loop playsinline></video></div>
+      <h2>Winsearch <span class="tag">1–30 MS · 1.6M FILES</span></h2>
+      <p>Instant local filename search for Windows with a preview pane for PDFs, Office files, images and code.</p>
+      <div class="meta">Rust · 2026 · <u>click to see a write-up</u></div>
+    </article>
+
+    <article class="card">
+      <div class="tile inset" style="background:#ffe1cc"><video src="../../assets/web/halo.mp4" poster="../../assets/web/halo-poster.jpg" autoplay muted loop playsinline></video></div>
+      <h2>Halo <span class="tag">GEMINI · STREAMING</span></h2>
+      <p>Circle to Search for the desktop: hit a hotkey, drag over anything on screen, and ask Gemini about it.</p>
+      <div class="meta">Rust + React · 2026</div>
+    </article>
+  </section>
+
+  <div class="label">More projects</div>
+  <section class="small">
+    <div class="mini"><span class="tag">WGAN-GP · CBAM</span><h4>CompressiveVision</h4><p>Rebuilds images from compressed measurements and encrypts them in transit.</p><div class="meta">Python · 2026</div></div>
+    <div class="mini"><span class="tag">DP-SGD</span><h4>PrivacyGuard ML</h4><p>Membership inference attacks vs differential privacy, measured on CIFAR-10.</p><div class="meta">Python · 2026</div></div>
+    <div class="mini"><span class="tag">ARM→AARCH64 JIT</span><h4>IceBreaker</h4><p>Runs a 2013 Android game on modern 64-bit phones without touching its code.</p><div class="meta">C++ · 2026</div></div>
+    <div class="mini"><span class="tag">VOCAL ANALYSIS</span><h4>Cosmic Relay</h4><p>Karaoke game that records takes, stitches them, and gives AI feedback.</p><div class="meta">Python · 2026</div></div>
+    <div class="mini"><span class="tag">ENSEMBLE CNN</span><h4>Solar fault detection</h4><p>DenseNet, EfficientNet and ResNet combined to spot faulty solar panels.</p><div class="meta">Jupyter · 2026</div></div>
+    <div class="mini"><span class="tag">RF + ARIMA</span><h4>AQI forecasting</h4><p>Hybrid model forecasting air quality index.</p><div class="meta">Jupyter · 2025</div></div>
+  </section>
+
+  <footer>© 2026 Ani · Mockup only, not the final site</footer>
+</main>
+
+<article id="writeup">
+  <div class="back" onclick="closeWriteup()">← All projects</div>
+  <h1>Winsearch</h1>
+  <p class="lede">Fast, local filename search for Windows 10 and 11, with a built-in preview pane.</p>
+  <div class="tags"><span class="tag">RUST</span><span class="tag">SQLITE</span><span class="tag">WIN32</span><span class="tag">2026</span></div>
+  <video src="../../assets/web/winsearch.mp4" autoplay muted loop playsinline></video>
+  <h3>The problem</h3>
+  <p>Windows search is slow and noisy when you just want a file by name. Winsearch answers instantly and lets you check the file without opening it.</p>
+  <h3>How it works</h3>
+  <ul>
+    <li>Keeps its own index of file and folder names in SQLite, so a search never scans the disk.</li>
+    <li>Previews render in the background for the selected file only: images, PDFs, Word and Excel without Office, and code.</li>
+    <li>Fully local, no admin rights, no telemetry.</li>
+  </ul>
+  <h3>Results</h3>
+  <div class="stats">
+    <div class="stat"><b>1–30 ms</b><span>typical query time</span></div>
+    <div class="stat"><b>1.6M</b><span>indexed entries</span></div>
+    <div class="stat"><b>0</b><span>disk scans per search</span></div>
+  </div>
+  <a class="gh" href="#">View on GitHub →</a>
+</article>
+
+<script>
+  function openWriteup(){ document.body.classList.add('reading'); scrollTo(0,0); }
+  function closeWriteup(){ document.body.classList.remove('reading'); }
+</script>
+</body>
+</html>

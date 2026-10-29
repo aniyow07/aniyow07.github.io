@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ani — Portfolio mockup v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#efefea; --ink:#141414; --muted:#77756f; --soft:#a8a69f; --line:#d9d8d1; --pill:#dddcd5; }
+  * { box-sizing:border-box; margin:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--ink); font:16px/1.6 Manrope, system-ui, sans-serif; }
+  /* paper grain over everything */
+  body::before { content:""; position:fixed; inset:0; pointer-events:none; z-index:50; opacity:.35; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  a { color:inherit; }
+  :focus-visible { outline:2px solid var(--ink); outline-offset:3px; border-radius:6px; }
+  .wrap { max-width:1180px; margin:0 auto; padding:0 28px; }
+
+  nav { position:sticky; top:0; z-index:20; }
+  nav .wrap { display:flex; justify-content:space-between; align-items:center; height:84px; }
+  .logo { width:44px; height:44px; border-radius:50%; background:var(--ink); color:var(--bg); display:grid; place-items:center;
+          font:800 17px Manrope; text-decoration:none; letter-spacing:-.04em; }
+  .pills { display:flex; gap:4px; background:color-mix(in srgb, var(--bg) 70%, transparent); backdrop-filter:blur(10px); padding:4px; border-radius:999px; }
+  .pills a { font:600 15px Manrope; color:#55534e; text-decoration:none; padding:8px 16px; border-radius:999px; }
+  .pills a.on { background:var(--pill); color:var(--ink); }
+  .pills a:hover { color:var(--ink); }
+
+  /* hero */
+  .hero { display:grid; grid-template-columns:1fr 300px; min-height:520px; }
+  .hero-main { padding:96px 56px 56px 0; border-right:1px solid var(--line); display:flex; flex-direction:column; justify-content:flex-end; }
+  h1 { font:800 clamp(46px,6.4vw,82px)/1 Manrope; letter-spacing:-.045em; }
+  .lines { position:relative; height:2.2em; margin-top:14px; font:800 clamp(30px,4.2vw,54px)/1.08 Manrope; letter-spacing:-.04em; }
+  .lines span { position:absolute; inset:0; color:var(--soft); opacity:0; filter:blur(10px); transform:translateY(16px);
+                transition:opacity .7s, filter .7s, transform .7s; }
+  .lines span.on { opacity:1; filter:blur(0); transform:none; }
+  .facts { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:56px; }
+  .facts b { display:block; font-weight:700; }
+  .facts span { color:var(--muted); }
+  .hero-side { padding:96px 0 56px 40px; display:flex; flex-direction:column; justify-content:flex-end; }
+  .avatar { width:84px; height:84px; border-radius:50%; margin-bottom:20px; background:#d8d6cd; display:grid; place-items:center;
+            color:var(--muted); font-size:12px; text-align:center; line-height:1.2; }
+  .hero-side h2 { font:700 17px Manrope; }
+  .hero-side p { color:var(--muted); margin-top:4px; }
+  .social { display:flex; gap:18px; margin-top:20px; }
+  .social a { font-weight:700; font-size:15px; text-decoration:none; border-bottom:2px solid var(--ink); }
+
+  /* work grid */
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:64px 32px; padding:72px 0 40px; }
+  .card { text-decoration:none; color:inherit; display:block; }
+  .tile { position:relative; aspect-ratio:4/3; border-radius:6px; overflow:hidden; isolation:isolate; }
+  .tile::after { content:""; position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.5; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E"); }
+  .shot { position:absolute; left:12%; top:14%; width:104%; border-radius:10px; box-shadow:0 20px 50px -18px #0007;
+          transition:transform .6s cubic-bezier(.2,.7,.2,1); }
+  .card:hover .shot { transform:translate(-2%,-2%); }
+  .shot.phone { left:50%; top:9%; width:auto; height:118%; transform:translateX(-50%) rotate(-4deg); border-radius:16px; }
+  .card:hover .shot.phone { transform:translateX(-50%) rotate(0deg); }
+  .type { position:absolute; inset:0; padding:9%; display:flex; flex-direction:column; justify-content:flex-end; }
+  .type b { font:800 clamp(34px,4.4vw,60px)/.98 Manrope; letter-spacing:-.045em; }
+  .type small { font-size:16px; font-weight:600; opacity:.75; margin-top:12px; }
+  .card h3 { font:700 25px Manrope; letter-spacing:-.02em; margin-top:22px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .badge { font:700 12px Manrope; letter-spacing:.04em; color:#6d6b65; border:1.5px solid #c9c7bf; border-radius:999px; padding:3px 10px; }
+  .card p { color:var(--muted); margin-top:8px; max-width:56ch; }
+  .meta { font-weight:700; margin-top:12px; font-size:15px; }
+
+  footer { border-top:1px solid var(--line); padding:40px 0 56px; color:var(--muted); font-size:15px; margin-top:40px; }
+
+  @media (max-width:860px) {
+    .hero { grid-template-columns:1fr; } .hero-main { border:0; padding:56px 0 24px; } .hero-side { padding:24px 0 0; }
+    .grid { grid-template-columns:1fr; gap:48px; } .pills a { padding:8px 11px; }
+  }
+  @media (prefers-reduced-motion:reduce) { .lines span { transition:none; } .shot { transition:none; } }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="#">An.</a>
+  <div class="pills"><a class="on" href="#work">Work</a><a href="#">About</a><a href="#">Resume</a></div>
+</div></nav>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-main">
+      <h1>Hello, I'm Ani</h1>
+      <div class="lines" aria-live="off">
+        <span class="on">I fine-tune LLMs and test them honestly</span>
+        <span>I build agents that make whole videos</span>
+        <span>I write Rust tools that answer in milliseconds</span>
+        <span>I'd rather ship it than slide-deck it</span>
+      </div>
+      <div class="facts">
+        <div><b>Looking for</b><span>AI/ML and GenAI internships</span></div>
+        <div><b>Usually working in</b><span>PyTorch, Rust, Gemini, Qwen</span></div>
+      </div>
+    </div>
+    <aside class="hero-side">
+      <div class="avatar">your photo or illustration</div>
+      <h2>Nice to meet you</h2>
+      <p>I'm an engineering student who takes ML ideas all the way to something that runs: fine-tunes with real evals, agent pipelines, and desktop tools people use daily.</p>
+      <div class="social"><a href="#">GitHub</a><a href="#">LinkedIn</a><a href="#">Email</a></div>
+    </aside>
+  </section>
+
+  <section class="grid" id="work">
+    <a class="card" href="#">
+      <div class="tile" style="background:#2a3466">
+        <div class="type" style="color:#f1f0ff"><b>Qwen3-8B,<br>made opinionated.</b><small>QLoRA on an 8 GB laptop GPU, judged blind</small></div>
+      </div>
+      <h3>Archon <span class="badge">FINE-TUNED ↗</span></h3>
+      <p>A sparring partner that reviews system design and ML plans. Data cleaning, QLoRA training, blind evaluation against the base model and a quantized Ollama build, with results reported honestly.</p>
+      <div class="meta">Python · 2026</div>
+    </a>
+
+    <a class="card" href="#">
+      <div class="tile" style="background:#e9b44c">
+        <video class="shot phone" src="../../assets/web/agentreel-loop.mp4" poster="../../assets/web/agentreel-poster.jpg" autoplay muted loop playsinline></video>
+      </div>
+      <h3>AgentReel <span class="badge">7 AGENTS ↗</span></h3>
+      <p>Seven AI agents turn a topic or brief into a finished short video. They plan, research, write, storyboard, voice, edit and check it, and every claim is grounded in your sources.</p>
+      <div class="meta">Python · 2026</div>
+    </a>
+
+    <a class="card" href="#">
+      <div class="tile" style="background:#9db8f5">
+        <video class="shot" src="../../assets/web/winsearch.mp4" poster="../../assets/web/winsearch-poster.jpg" autoplay muted loop playsinline></video>
+      </div>
+      <h3>Winsearch <span class="badge">1–30 MS ↗</span></h3>
+      <p>Filename search for Windows that never scans the disk. Searches 1.6 million files in milliseconds and previews PDFs, Office files, images and code.</p>
+      <div class="meta">Rust · 2026</div>
+    </a>
+
+    <a class="card" href="#">
+      <div class="tile" style="background:#e98a6c">
+        <video class="shot" src="../../assets/web/halo.mp4" poster="../../assets/web/halo-poster.jpg" autoplay muted loop playsinline></video>
+      </div>
+      <h3>Halo <span class="badge">GEMINI ↗</span></h3>
+      <p>Circle to Search for the desktop. Press a hotkey, drag over anything on screen, and Gemini's answer streams in right beside it.</p>
+      <div class="meta">Rust + React · 2026</div>
+    </a>
+
+    <a class="card" href="#">
+      <div class="tile" style="background:#3f6b4f">
+        <div class="type" style="color:#eef6ea"><b>Half the data.<br>Picture rebuilt.</b><small>WGAN-GP, CBAM and DnCNN, with encrypted measurements</small></div>
+      </div>
+      <h3>CompressiveVision <span class="badge">RESEARCH ↗</span></h3>
+      <p>Rebuilds images from compressed sensing measurements at a 50% rate and protects the measurements in transit.</p>
+      <div class="meta">Python · 2026</div>
+    </a>
+
+    <a class="card" href="#">
+      <div class="tile" style="background:#c9b6ef">
+        <div class="type" style="color:#21173d"><b>Did this model<br>see your data?</b><small>Membership inference attacks vs differential privacy</small></div>
+      </div>
+      <h3>PrivacyGuard ML <span class="badge">PRIVACY ↗</span></h3>
+      <p>Attacks a CIFAR-10 model to find its training images, then measures how much DP-SGD reduces that leak and what it costs in accuracy.</p>
+      <div class="meta">Python · 2026</div>
+    </a>
+
+    <a class="card" href="#">
+      <div class="tile" style="background:#7fc6d6">
+        <div class="type" style="color:#0f2f37"><b>2013 game.<br>2026 phone.</b><small>Original 32-bit ARM code through an AArch64 JIT</small></div>
+      </div>
+      <h3>IceBreaker <span class="badge">PRESERVATION ↗</span></h3>
+      <p>Runs the original Android game on modern 64-bit phones without changing its code, by reimplementing 267 imports around a JIT.</p>
+      <div class="meta">C++ · 2026</div>
+    </a>
+
+    <a class="card" href="#">
+      <div class="tile" style="background:#2b2b2b">
+        <div class="type" style="color:#f3d36b"><b>Sing it<br>in sections.</b><small>Record takes, stitch the best, get AI vocal feedback</small></div>
+      </div>
+      <h3>Cosmic Relay <span class="badge">GAME ↗</span></h3>
+      <p>A karaoke game that splits songs into sections, combines your best takes, and analyzes your vocals.</p>
+      <div class="meta">Python · 2026</div>
+    </a>
+  </section>
+
+  <footer>Built by Ani, 2026. Mockup only, real details coming.</footer>
+</main>
+
+<script>
+  const spans = document.querySelectorAll('.lines span'); let i = 0;
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches)
+    setInterval(() => { spans[i].classList.remove('on'); i = (i + 1) % spans.length; spans[i].classList.add('on'); }, 2800);
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ani — Direction A: Lab notebook</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#eef2f1; --ink:#1a2233; --muted:#5c6677; --blue:#2f5bea; --amber:#e39b2d; --white:#fff; --rule:#d3dad8; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--paper); color:var(--ink); font:17px/1.6 "IBM Plex Sans", sans-serif;
+         background-image:linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+         background-size:32px 32px; background-attachment:fixed; }
+  a { color:inherit; }
+  :focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
+  .wrap { max-width:1160px; margin:0 auto; padding:0 24px; }
+  header .wrap { display:flex; justify-content:space-between; align-items:baseline; padding-top:28px; }
+  .me { font:800 22px "Bricolage Grotesque"; text-decoration:none; }
+  header nav a { margin-left:24px; text-decoration:none; color:var(--muted); font-weight:500; }
+  header nav a:hover { color:var(--ink); }
+
+  .hero { display:grid; grid-template-columns:1.15fr 1fr; gap:56px; align-items:center; padding:88px 0 96px; }
+  h1 { font:800 clamp(42px,6vw,78px)/0.98 "Bricolage Grotesque"; letter-spacing:-0.035em; }
+  .intro { margin-top:28px; max-width:46ch; color:var(--muted); font-size:19px; }
+  .cta { display:flex; gap:12px; margin-top:32px; flex-wrap:wrap; }
+  .btn { background:var(--ink); color:var(--white); text-decoration:none; padding:13px 22px; border-radius:8px; font-weight:600; }
+  .btn.ghost { background:transparent; color:var(--ink); box-shadow:inset 0 0 0 2px var(--ink); }
+
+  .plot { background:var(--white); border-radius:6px; padding:22px 22px 16px; box-shadow:0 1px 0 var(--rule), 0 18px 40px -24px #1a223355; }
+  .plot h2 { font:600 15px "IBM Plex Sans"; }
+  .plot p { font-size:14px; color:var(--muted); margin-top:10px; }
+  .legend { display:flex; gap:18px; font-size:13px; color:var(--muted); margin-top:4px; }
+  .legend i { display:inline-block; width:18px; height:3px; vertical-align:middle; margin-right:6px; border-radius:2px; }
+  .line { fill:none; stroke-width:3; stroke-linecap:round; stroke-dasharray:900; stroke-dashoffset:900; animation:draw 2.4s .3s ease-out forwards; }
+  .line.b { animation-delay:.9s; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+
+  .work { padding-bottom:40px; }
+  .work > h2, .rest > h2 { font:800 34px "Bricolage Grotesque"; letter-spacing:-0.02em; margin-bottom:28px; }
+  .row { display:grid; grid-template-columns:7fr 5fr; gap:44px; align-items:center; padding:40px 0; border-top:2px solid var(--ink); }
+  .row:nth-of-type(even) .media { order:2; }
+  .media { border-radius:6px; overflow:hidden; aspect-ratio:16/10; display:grid; place-items:center; }
+  .media video { width:100%; height:100%; object-fit:cover; display:block; }
+  .media.tall video { width:auto; height:94%; border-radius:6px; }
+  .row h3 { font:800 40px "Bricolage Grotesque"; letter-spacing:-0.02em; }
+  .stat { font:800 26px/1.15 "Bricolage Grotesque"; color:var(--blue); margin:10px 0 14px; }
+  .row p { color:var(--muted); max-width:44ch; }
+  .row .links { margin-top:18px; display:flex; gap:20px; font-weight:600; }
+
+  .rest { padding:56px 0 24px; }
+  table { width:100%; border-collapse:collapse; background:var(--white); border-radius:6px; overflow:hidden; }
+  th, td { text-align:left; padding:14px 18px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  th { font-size:14px; color:var(--muted); font-weight:500; }
+  td:first-child { font-weight:600; white-space:nowrap; }
+  td.r { color:var(--blue); font-weight:500; }
+  tr:last-child td { border:0; }
+  tbody tr:hover { background:#f6f8ff; }
+  footer { padding:56px 0 48px; color:var(--muted); font-size:15px; }
+
+  @media (max-width:820px) {
+    .hero, .row { grid-template-columns:1fr; gap:28px; } .row:nth-of-type(even) .media { order:0; }
+    th:nth-child(3), td:nth-child(3) { display:none; }
+  }
+  @media (prefers-reduced-motion:reduce) { .line { animation:none; stroke-dashoffset:0; } }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="me" href="#">Ani</a>
+  <nav><a href="#work">Work</a><a href="#about">About</a><a href="#">Resume</a></nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1>I build ML systems, then check whether they actually work.</h1>
+      <p class="intro">Engineering student looking for AI/ML and GenAI internships. I fine-tune LLMs, wire up agent pipelines, and write the fast tools around them.</p>
+      <div class="cta"><a class="btn" href="#work">See the work</a><a class="btn ghost" href="#">Download resume</a></div>
+    </div>
+    <figure class="plot">
+      <h2>Archon vs base Qwen3-8B, blind review</h2>
+      <div class="legend"><span><i style="background:var(--blue)"></i>Archon (fine-tuned)</span><span><i style="background:var(--amber)"></i>Base model</span></div>
+      <svg viewBox="0 0 460 230" role="img" aria-label="Illustrative chart: Archon learns the style but trails the base model on accuracy">
+        <g stroke="#e3e8e6"><path d="M40 20H450M40 70H450M40 120H450M40 170H450"/></g>
+        <path d="M40 200H450M40 20V200" stroke="#1a2233" stroke-width="1.5"/>
+        <path class="line" stroke="#2f5bea" d="M40 180C90 150 120 90 170 75S260 60 300 58 400 55 450 54"/>
+        <path class="line b" stroke="#e39b2d" d="M40 175C100 130 140 70 200 52S320 38 450 36"/>
+        <g font-size="12" fill="#5c6677" font-family="IBM Plex Sans"><text x="40" y="220">training steps</text><text x="0" y="24">score</text></g>
+      </svg>
+      <p>It learned the tone and lost accuracy. The write-up says so, with the numbers. (Illustrative chart; real data goes here.)</p>
+    </figure>
+  </section>
+
+  <section class="work" id="work">
+    <h2>Selected work</h2>
+
+    <article class="row">
+      <div class="media" style="background:#1a2233">
+        <svg viewBox="0 0 520 300" width="86%" font-family="IBM Plex Sans" font-size="16">
+          <g fill="none" stroke="#7d9bff" stroke-width="2"><rect x="10" y="122" width="110" height="56" rx="8"/><rect x="150" y="122" width="110" height="56" rx="8"/><rect x="290" y="122" width="110" height="56" rx="8"/><rect x="420" y="42" width="92" height="56" rx="8"/><rect x="420" y="202" width="92" height="56" rx="8"/><path d="M120 150h30M260 150h30M400 150c10 0 10-80 20-80M400 150c10 0 10 80 20 80"/></g>
+          <g fill="#eef2f1" text-anchor="middle"><text x="65" y="155">Clean data</text><text x="205" y="155">QLoRA</text><text x="345" y="155">Blind eval</text><text x="466" y="75">Benchmarks</text><text x="466" y="235">Ollama</text></g>
+        </svg>
+      </div>
+      <div>
+        <h3>Archon</h3>
+        <div class="stat">Qwen3-8B fine-tuned on an 8 GB laptop GPU</div>
+        <p>A sparring partner that reviews system design and ML plans. Full pipeline from data cleaning to QLoRA training, blind pairwise evaluation and a quantized build for Ollama.</p>
+        <div class="links"><a href="#">Read the write-up</a><a href="#">GitHub</a></div>
+      </div>
+    </article>
+
+    <article class="row">
+      <div class="media tall" style="background:#0f1530"><video src="../../assets/web/agentreel-loop.mp4" poster="../../assets/web/agentreel-poster.jpg" autoplay muted loop playsinline></video></div>
+      <div>
+        <h3>AgentReel</h3>
+        <div class="stat">7 agents, brief in, narrated video out</div>
+        <p>Agents plan, research, write, storyboard, voice, edit and check a short video. Every claim is grounded in your own sources, and about 30 checks send failures back to the step that caused them.</p>
+        <div class="links"><a href="#">Read the write-up</a><a href="#">GitHub</a></div>
+      </div>
+    </article>
+
+    <article class="row">
+      <div class="media" style="background:#c9d6ff"><video src="../../assets/web/winsearch.mp4" poster="../../assets/web/winsearch-poster.jpg" autoplay muted loop playsinline style="width:90%;height:auto;border-radius:6px"></video></div>
+      <div>
+        <h3>Winsearch</h3>
+        <div class="stat">1 to 30 ms over 1.6 million files</div>
+        <p>Filename search for Windows that never scans the disk, with a preview pane for PDFs, Office files, images and code. Written in Rust on SQLite.</p>
+        <div class="links"><a href="#">Read the write-up</a><a href="#">GitHub</a></div>
+      </div>
+    </article>
+
+    <article class="row">
+      <div class="media" style="background:#ffe0b8"><video src="../../assets/web/halo.mp4" poster="../../assets/web/halo-poster.jpg" autoplay muted loop playsinline style="width:90%;height:auto;border-radius:6px"></video></div>
+      <div>
+        <h3>Halo</h3>
+        <div class="stat">Drag over anything on screen, ask Gemini</div>
+        <p>Circle to Search for the desktop. A hotkey freezes the screen, you select a region, and the answer streams into a panel beside it with follow-ups.</p>
+        <div class="links"><a href="#">Read the write-up</a><a href="#">GitHub</a></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="rest">
+    <h2>Other projects</h2>
+    <table>
+      <thead><tr><th>Project</th><th>What it does</th><th>Built with</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>CompressiveVision</td><td>Rebuilds images from compressed measurements and encrypts them in transit</td><td>PyTorch, WGAN-GP</td><td class="r">50% measurement rate</td></tr>
+        <tr><td>PrivacyGuard ML</td><td>Attacks models to find training data, then defends with differential privacy</td><td>Opacus, CIFAR-10</td><td class="r">4 privacy levels × 3 seeds</td></tr>
+        <tr><td>IceBreaker</td><td>Runs a 2013 Android game on 64-bit phones without changing its code</td><td>C++, dynarmic JIT</td><td class="r">267 imports reimplemented</td></tr>
+        <tr><td>Cosmic Relay</td><td>Karaoke game with recorded takes and AI vocal feedback</td><td>Python</td><td class="r">Section-by-section scoring</td></tr>
+        <tr><td>Solar fault detection</td><td>Spots faulty solar panels from images</td><td>DenseNet, EfficientNet, ResNet</td><td class="r">3-model ensemble</td></tr>
+        <tr><td>AQI forecasting</td><td>Forecasts air quality index</td><td>Random Forest, ARIMA</td><td class="r">Hybrid model</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer id="about"><a href="#">GitHub</a>&nbsp;&nbsp;<a href="#">LinkedIn</a>&nbsp;&nbsp;<a href="#">Email</a></footer>
+</main>
+</body>
+</html>

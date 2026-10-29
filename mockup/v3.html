@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ani — Portfolio mockup v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f1f1ee; --ink:#212529; --head:#000; --grey:rgba(0,0,0,.4); --line:rgba(0,0,0,.12); --tile:#e2e2de; --pill:rgba(200,200,200,.63); --navc:#898989;
+          --c1:#d9dcf5; --c2:#f2c46b; --c3:#a9bff2; --c4:#f0a98f; --c5:#bfdcc4; --c6:#9fd3de; --c6ink:#14323a; }
+  [data-p=bwlight] { --bg:#ffffff; --c1:#111111; --c2:#111111; --c3:#111111; --c4:#111111; --c5:#111111; --c6:#111111; --c6ink:#ffffff; }
+  [data-p=bwdark] { --bg:#0a0a0a; --c1:#f2f2f2; --c2:#f2f2f2; --c3:#f2f2f2; --c4:#f2f2f2; --c5:#f2f2f2; --c6:#f2f2f2; --c6ink:#111111; --ink:#ececea; --head:#fff; --grey:rgba(255,255,255,.5); --line:rgba(255,255,255,.12); --pill:rgba(255,255,255,.14); --navc:#9a9a9a; }
+  [data-p=bwdark] .logo { background:#fff; color:#000; } [data-p=bwdark] .avatar { background:#2a2b30; }
+  [data-p=paper] { --bg:#fafafa; --c1:#ececec; --c2:#ececec; --c3:#ececec; --c4:#ececec; --c5:#ececec; --c6:#ececec; --c6ink:#111111; }
+  [data-p=charcoal] { --bg:#1c1c1e; --c1:#2c2c2e; --c2:#2c2c2e; --c3:#2c2c2e; --c4:#2c2c2e; --c5:#2c2c2e; --c6:#2c2c2e; --c6ink:#f2f2f2; --ink:#ececea; --head:#fff; --grey:rgba(255,255,255,.5); --line:rgba(255,255,255,.12); --pill:rgba(255,255,255,.14); --navc:#9a9a9a; }
+  [data-p=charcoal] .logo { background:#fff; color:#000; } [data-p=charcoal] .avatar { background:#2a2b30; }
+  [data-p=midnight] { --bg:#0f1626; --c1:#1c2a44; --c2:#24365a; --c3:#1e3150; --c4:#2a3a5e; --c5:#1a2840; --c6:#223658; --c6ink:#dbe7ff; --ink:#ececea; --head:#fff; --grey:rgba(255,255,255,.5); --line:rgba(255,255,255,.12); --pill:rgba(255,255,255,.14); --navc:#9a9a9a; }
+  [data-p=midnight] .logo { background:#fff; color:#000; } [data-p=midnight] .avatar { background:#2a2b30; }
+  [data-p=slate] { --bg:#eceef1; --c1:#d5dae1; --c2:#c9d0da; --c3:#dde1e7; --c4:#cfd5de; --c5:#d9dde3; --c6:#c5ccd7; --c6ink:#1d2733; }
+  [data-p=sand] { --bg:#f4efe6; --c1:#e6dccb; --c2:#e6dccb; --c3:#e6dccb; --c4:#e6dccb; --c5:#e6dccb; --c6:#e6dccb; --c6ink:#3b2f1f; }
+  [data-p=lavender] { --bg:#f4f2f8; --c1:#ddd6f3; --c2:#e8def5; --c3:#d3d8f2; --c4:#e4d6ee; --c5:#dcdcf0; --c6:#d6e0f3; --c6ink:#2a2150; }
+  [data-p=forest] { --bg:#eef1ec; --c1:#2f4a3a; --c2:#4d6b55; --c3:#3b5a47; --c4:#5b7a62; --c5:#2a4234; --c6:#46634f; --c6ink:#e8f2ea; }
+  [data-p=clay] { --bg:#f6f0ea; --c1:#e9cbb7; --c2:#d79a7b; --c3:#e3b8a0; --c4:#cf8e72; --c5:#ecd5c4; --c6:#d9a58a; --c6ink:#3d1f12; }
+  [data-p=candy] { --bg:#fbfaf8; --c1:#ffd6e0; --c2:#fff1b8; --c3:#cdeafe; --c4:#d6f5d6; --c5:#e6dcff; --c6:#ffe0c2; --c6ink:#3a2a40; }
+  [data-p=match] { --c1:#f4d9c6; --c2:#efb457; --c3:#c3d1e5; --c4:#d2cfe2; --c5:#ddd7cc; --c6:#cfe4ee; --c6ink:#123848; }
+  [data-p=stone] { --bg:#f1f1ee; --c1:#e3e2dc; --c2:#e3e2dc; --c3:#e3e2dc; --c4:#e3e2dc; --c5:#e3e2dc; --c6:#e3e2dc; --c6ink:#212529; }
+  [data-p=bold]  { --c1:#b3a6f4; --c2:#d9a03a; --c3:#7fa7ee; --c4:#2f4b33; --c5:#e3775c; --c6:#2f6f78; --c6ink:#e9f7f6; }
+  [data-p=sage]  { --bg:#eceee6; --c1:#c9d6c0; --c2:#e3d3a8; --c3:#b7c9bd; --c4:#d9b9a3; --c5:#a9c2a0; --c6:#c7d8cf; --c6ink:#2b3a2a; }
+  [data-p=warm]  { --bg:#f6efe6; --c1:#f3c9b8; --c2:#f5b971; --c3:#e9a7a0; --c4:#f2d0a4; --c5:#e7b9c9; --c6:#f0c39c; --c6ink:#4a2414; }
+  [data-p=ocean] { --bg:#edf2f5; --c1:#bcd3ea; --c2:#9cc8d8; --c3:#a8b8ef; --c4:#c4e0dc; --c5:#8fb5cf; --c6:#b5d5f0; --c6ink:#10283b; }
+  [data-p=mono]  { --bg:#f3f3f1; --c1:#dcdcd8; --c2:#cfcfca; --c3:#e4e4e0; --c4:#d4d4cf; --c5:#c9c9c4; --c6:#deded9; --c6ink:#1f1f1f; }
+  [data-p=night] { --bg:#15161a; --ink:#ececea; --head:#fff; --grey:rgba(255,255,255,.5); --line:rgba(255,255,255,.12); --pill:rgba(255,255,255,.14); --navc:#9a9a9a;
+                   --c1:#2c3263; --c2:#6b4b17; --c3:#24406e; --c4:#6b2f22; --c5:#264a33; --c6:#1d4d57; --c6ink:#d8f3f8; }
+  [data-p=night] .logo { background:#fff; color:#000; } [data-p=night] .avatar { background:#2a2b30; }
+  .switch { position:fixed; right:20px; bottom:20px; z-index:30; display:flex; gap:8px; align-items:center; background:var(--bg);
+            padding:8px 10px; border-radius:100px; box-shadow:0 0 0 1px var(--line), 0 10px 30px -10px rgba(0,0,0,.3); font:700 13px Manrope; color:var(--grey); }
+  .switch button { width:26px; height:26px; border-radius:50%; border:2px solid transparent; cursor:pointer; padding:0; }
+  .switch button[aria-pressed=true] { border-color:var(--ink); }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font:500 16px/1.5 Manrope, sans-serif; }
+  a { color:inherit; text-decoration:none; }
+  :focus-visible { outline:2px solid var(--ink); outline-offset:3px; border-radius:8px; }
+  .wrap { max-width:1200px; margin:0 auto; padding:0 32px; }
+
+  nav { position:sticky; top:0; z-index:10; }
+  nav .wrap { display:flex; justify-content:space-between; align-items:center; height:80px; }
+  .logo { width:40px; height:40px; border-radius:50%; background:#000; color:#fff; display:grid; place-items:center; font:900 16px Nunito; }
+  .links { display:flex; gap:8px; }
+  .links a { font:700 18px Manrope; color:var(--navc); padding:8px 16px; border-radius:100px; }
+  .links a.on { color:var(--head); background:var(--pill); }
+  .links a:hover { color:var(--head); }
+
+  .hero { display:grid; grid-template-columns:1fr 300px; gap:0; padding-top:40px; }
+  .hero-l { padding:64px 48px 48px 0; border-right:1px solid var(--line); }
+  h1 { font:900 64px/1.2 Nunito; letter-spacing:-.01em; }
+  .rot { position:relative; height:154px; margin-top:4px; }
+  .rot h2 { position:absolute; inset:0; font:800 64px/1.2 Manrope; letter-spacing:-.02em; color:var(--grey);
+            opacity:0; filter:blur(12px); transition:opacity .8s, filter .8s; }
+  .rot h2.on { opacity:1; filter:none; }
+  .now { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:72px; }
+  .now h3, .side h3 { font:700 20px/1.5 Manrope; }
+  .now p, .side p { font:600 20px/1.6 Manrope; color:var(--grey); }
+  .side { padding:64px 0 48px 40px; display:flex; flex-direction:column; justify-content:center; }
+  .avatar { width:96px; height:96px; border-radius:50%; background:#d8d8d3; margin-bottom:20px; display:grid; place-items:center;
+            font:600 12px Manrope; color:var(--grey); text-align:center; }
+  .social { display:flex; gap:16px; margin-top:22px; }
+  .social svg { width:24px; height:24px; fill:var(--ink); }
+
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:72px 32px; padding:64px 0 96px; }
+  .media { position:relative; aspect-ratio:457/297; border-radius:12px; overflow:hidden; background:var(--tile); }
+  .media video, .media img { position:absolute; display:block; border-radius:8px; box-shadow:0 12px 32px -12px rgba(0,0,0,.35);
+            transition:transform .5s cubic-bezier(.2,.7,.2,1); }
+  .card:hover .media video, .card:hover .media img { transform:translateY(-6px); }
+  .bleed { left:10%; top:12%; width:100%; }
+  .center { left:50%; top:10%; width:80%; translate:-50% 0; }
+  .phone { left:50%; top:8%; height:130%; translate:-50% 0; border-radius:14px !important; }
+  .pair { display:flex; gap:4%; position:absolute; inset:14% 8% auto; }
+  .pair img { position:static; width:48%; aspect-ratio:1; object-fit:cover; }
+  .pair figcaption { display:none; }
+  .type { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
+          font:800 clamp(32px,4vw,52px)/1.05 Manrope; letter-spacing:-.03em; color:var(--c6ink); }
+  .card h3 { font:700 24px/1.2 Manrope; margin-top:24px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; color:var(--head); }
+  .badge { font:700 13px/1 Manrope; letter-spacing:.01em; color:var(--grey); border:1.5px solid var(--line); border-radius:100px; padding:4px 10px; }
+  .card p { color:var(--grey); line-height:1.7; margin-top:12px; }
+  .meta { font-weight:700; margin-top:14px; }
+
+  footer { border-top:1px solid var(--line); padding:32px 0 48px; color:var(--grey); font-weight:600; }
+
+  @media (max-width:900px) {
+    .hero { grid-template-columns:1fr; } .hero-l { border:0; padding:32px 0 0; } .side { padding:40px 0 0; }
+    h1, .rot h2 { font-size:44px; } .rot { height:110px; } .now { margin-top:40px; }
+    .grid { grid-template-columns:1fr; gap:56px; } .links a { font-size:16px; padding:8px 12px; }
+  }
+  @media (prefers-reduced-motion:reduce) { .rot h2 { transition:none; } }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="#">A.</a>
+  <div class="links"><a class="on" href="#work">Work</a><a href="#">About</a><a href="#">Resume</a></div>
+</div></nav>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-l">
+      <h1>Hello, I'm Ani</h1>
+      <div class="rot">
+        <h2 class="on">I work on LLMs and agents</h2>
+        <h2>I build things in Python and Rust</h2>
+        <h2>Looking for an ML internship</h2>
+        <h2>Student, builder, tinkerer</h2>
+      </div>
+      <div class="now">
+        <div><h3>Looking for</h3><p>AI/ML &amp; GenAI internships</p></div>
+        <div><h3>Studying</h3><p>Your college &amp; year here</p></div>
+      </div>
+    </div>
+    <aside class="side">
+      <div class="avatar">photo</div>
+      <h3>Nice to meet you</h3>
+      <p>I take ML ideas all the way to something that runs: fine-tunes with real evals, agent pipelines, and tools people use every day.</p>
+      <div class="social">
+        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1a3.7 3.7 0 0 1 3.4-1.9c3.6 0 4.3 2.4 4.3 5.5v6.3ZM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2ZM7.1 20.5H3.5V9h3.6v11.5Z"/></svg></a>
+        <a href="#" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 7.2L4 7.3V17h16V7.3l-8 4.9Zm7.1-5.2H4.9l7.1 4.3L19.1 7Z"/></svg></a>
+      </div>
+    </aside>
+  </section>
+
+  <section class="grid" id="work">
+    <a class="card" href="#">
+      <div class="media" style="background:var(--c1)"><img class="center" src="../../aniyow07/Archonn/results/run2/bench/accuracy.png" alt="Benchmark accuracy chart, Archon vs base model"></div>
+      <h3>Archon <span class="badge">FINE-TUNED ↗</span></h3>
+      <p>A design-review sparring partner distilled into Qwen3-8B with QLoRA on an 8 GB GPU. Judged blind against the base model and on benchmarks, with the honest result: it learned the style but lost accuracy.</p>
+      <div class="meta">Python · 2026</div>
+    </a>
+    <a class="card" href="#">
+      <div class="media" style="background:var(--c2)"><video class="phone" src="../../assets/web/agentreel-loop.mp4" poster="../../assets/web/agentreel-poster.jpg" autoplay muted loop playsinline></video></div>
+      <h3>AgentReel <span class="badge">7 AGENTS ↗</span></h3>
+      <p>Seven AI agents turn any topic or brief into a finished, narrated short video. Every claim is grounded in your sources, and about 30 automatic checks catch mistakes.</p>
+      <div class="meta">Python · 2026</div>
+    </a>
+    <a class="card" href="#">
+      <div class="media" style="background:var(--c3)"><video class="bleed" src="../../assets/web/winsearch.mp4" poster="../../assets/web/winsearch-poster.jpg" autoplay muted loop playsinline></video></div>
+      <h3>Winsearch <span class="badge">1–30 MS ↗</span></h3>
+      <p>Filename search for Windows that never scans the disk. Finds anything across 1.6 million files in milliseconds, with a preview pane for PDFs, Office files and code.</p>
+      <div class="meta">Rust · 2026</div>
+    </a>
+    <a class="card" href="#">
+      <div class="media" style="background:var(--c4)"><video class="bleed" src="../../assets/web/halo.mp4" poster="../../assets/web/halo-poster.jpg" autoplay muted loop playsinline></video></div>
+      <h3>Halo <span class="badge">GEMINI ↗</span></h3>
+      <p>Circle to Search for the desktop. Press a hotkey, drag over anything on screen, and Gemini's answer streams in beside it, with follow-ups.</p>
+      <div class="meta">Rust + React · 2026</div>
+    </a>
+    <a class="card" href="#">
+      <div class="media" style="background:var(--c5)"><figure class="pair"><img src="../../Aniyow/CompressiveVision/IA/results/full_pipeline_cbam/original.png" alt="Original image"><img src="../../Aniyow/CompressiveVision/IA/results/full_pipeline_cbam/final_dncnn.png" alt="Reconstructed image"></figure></div>
+      <h3>CompressiveVision <span class="badge">RESEARCH ↗</span></h3>
+      <p>Rebuilds images from compressed measurements with WGAN-GP, CBAM attention and DnCNN refinement, and encrypts the measurements in transit.</p>
+      <div class="meta">Python · 2026</div>
+    </a>
+    <a class="card" href="#">
+      <div class="media" style="background:var(--c6)"><div class="type">ARMv5<br>→ AArch64</div></div>
+      <h3>IceBreaker <span class="badge">PRESERVATION ↗</span></h3>
+      <p>Makes a 2013 Android game run on modern 64-bit phones without changing its code, by running the original 32-bit libraries inside an ARM to AArch64 JIT with 267 imports reimplemented.</p>
+      <div class="meta">C++ · 2026</div>
+    </a>
+    <a class="card" href="#">
+      <div class="media" style="background:#111111"><video style="inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;box-shadow:none" src="../../assets/web/prime-dark.mp4" poster="../../assets/web/prime-dark-poster.jpg" autoplay muted loop playsinline></video></div>
+      <h3>Prime gaps <span class="badge">EXPERIMENT ↗</span></h3>
+      <p>Explores the gaps between primes with a C++ sieve, a dataset of primes and gaps, and Python dashboards.</p>
+      <div class="meta">C++ + Python · 2026</div>
+    </a>
+  </section>
+
+  <footer>© 2026 Ani. Mockup, details coming.</footer>
+</main>
+
+<script>
+  const r = document.querySelectorAll('.rot h2'); let i = 0;
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches)
+    setInterval(() => { r[i].classList.remove('on'); i = (i + 1) % r.length; r[i].classList.add('on'); }, 3000);
+
+</script>
+<div class="switch" role="group" aria-label="Color palette">Palette
+  <button data-v="" title="Original" style="background:conic-gradient(#d9dcf5 0 50%,#f2c46b 0)"></button>
+  <button data-v="match" title="Matched" style="background:conic-gradient(#f4d9c6 0 50%,#c3d1e5 0)"></button>
+  <button data-v="stone" title="Stone" style="background:conic-gradient(#e3e2dc 0 50%,#e3e2dc 0)"></button>
+  <button data-v="bwlight" title="Black tiles on white" style="background:conic-gradient(#ffffff 0 50%,#111111 0)"></button>
+  <button data-v="bwdark" title="White tiles on black" style="background:conic-gradient(#0a0a0a 0 50%,#f2f2f2 0)"></button>
+  <button data-v="paper" title="Paper grey" style="background:conic-gradient(#fafafa 0 50%,#ececec 0)"></button>
+  <button data-v="charcoal" title="Charcoal" style="background:conic-gradient(#1c1c1e 0 50%,#2c2c2e 0)"></button>
+  <button data-v="midnight" title="Midnight blue" style="background:conic-gradient(#0f1626 0 50%,#1c2a44 0)"></button>
+  <button data-v="slate" title="Slate" style="background:conic-gradient(#eceef1 0 50%,#d5dae1 0)"></button>
+  <button data-v="sand" title="Sand" style="background:conic-gradient(#f4efe6 0 50%,#e6dccb 0)"></button>
+  <button data-v="lavender" title="Lavender" style="background:conic-gradient(#f4f2f8 0 50%,#ddd6f3 0)"></button>
+  <button data-v="forest" title="Forest" style="background:conic-gradient(#eef1ec 0 50%,#2f4a3a 0)"></button>
+  <button data-v="clay" title="Clay" style="background:conic-gradient(#f6f0ea 0 50%,#e9cbb7 0)"></button>
+  <button data-v="candy" title="Candy" style="background:conic-gradient(#fbfaf8 0 50%,#ffd6e0 0)"></button>
+  <button data-v="night" title="Night" style="background:conic-gradient(#15161a 0 50%,#2c3263 0)"></button>
+</div>
+<script>
+  document.querySelectorAll('.switch button').forEach(b => b.onclick = () => {
+    document.documentElement.dataset.p = b.dataset.v;
+    document.querySelectorAll('.switch button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  });
+  const start = new URLSearchParams(location.search).get('p') ?? 'bwlight';
+  (document.querySelector(`.switch button[data-v="${start}"]`) || document.querySelector('.switch button')).click();
+  if (new URLSearchParams(location.search).has('y')) addEventListener('load', () => scrollTo(0, +new URLSearchParams(location.search).get('y')));
+</script>
+</body>
+</html>
