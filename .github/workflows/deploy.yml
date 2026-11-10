@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Daily rebuild so newly merged PRs appear on the site.
+    - cron: '0 6 * * *'
 
 permissions:
   contents: read
@@ -20,6 +23,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: withastro/action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:
     needs: build
     runs-on: ubuntu-latest

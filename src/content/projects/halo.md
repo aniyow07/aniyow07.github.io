@@ -1,6 +1,6 @@
 ---
 title: Halo
-order: 4
+order: 5
 badge: Gemini
 summary: Circle to Search for the desktop. Press a hotkey, drag over anything on screen, and Gemini's answer streams in beside it, with follow-ups.
 meta: Rust + React · 2026

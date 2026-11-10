@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { site } from '../data/site';
 
-interface Props { title: string; description: string; active?: 'work' }
+interface Props { title: string; description: string; active?: 'work' | 'oss' }
 const { title, description, active = 'work' } = Astro.props;
 ---
 <!doctype html>
@@ -21,12 +21,29 @@ const { title, description, active = 'work' } = Astro.props;
       <div class="wrap">
         <a class="logo" href="/" aria-label="Home">A.</a>
         <div class="links">
-          <a class:list={[{ on: active === 'work' }]} href="/#work">Work</a>
-          <a href="/#about">About</a>
+          <a class:list={[{ on: active === 'work' || active === 'oss' }]} href="/#work">Work</a>
+          <a class="about" href="/#about">About</a>
           <a href={site.links.resume} target="_blank" rel="noopener">Resume</a>
         </div>
       </div>
     </nav>
     <slot />
+    <script>
+      // Shrink the header once the page scrolls under it, tuck it away while
+      // scrolling down, and bring it back on any scroll up.
+      const nav = document.querySelector('nav')!;
+      let last = scrollY;
+      const update = () => {
+        const y = scrollY;
+        nav.classList.toggle('scrolled', y > 4);
+        if (Math.abs(y - last) > 6) {
+          nav.classList.toggle('tucked', y > last && y > 120 && !nav.contains(document.activeElement));
+          last = y;
+        }
+      };
+      addEventListener('scroll', update, { passive: true });
+      nav.addEventListener('focusin', () => nav.classList.remove('tucked'));
+      update();
+    </script>
   </body>
 </html>

@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import Octicon from '../components/Octicon.astro';
+import { site } from '../data/site';
+import { getContributions } from '../data/oss';
+
+const oss = await getContributions();
+const stars = (n: number) => (n >= 1000 ? `${Math.round(n / 1000)}k` : `${n}`);
+const fmt = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+<Base title={`Open source | ${site.name}`} description="Pull requests to open source projects, pulled from GitHub." active="oss">
+  <main class="wrap">
+    <section class="oss" id="oss">
+      <h1>Open source</h1>
+      <p class="oss-lede">Pull requests I've made to other people's projects, pulled from GitHub and updated daily.</p>
+      {oss.length === 0 && <p class="oss-lede">Nothing to show right now. See <a href={site.links.github}>GitHub</a>.</p>}
+      <div class="oss-list">
+        {oss.map((g) => (
+          <details class="oss-repo">
+            <summary>
+              <span class="oss-repo-name">
+                <span class="oss-owner">{g.repo.split('/')[0]}{g.stars > 0 && ` · ★ ${stars(g.stars)}`}</span>
+                <span class="oss-name">{g.repo.split('/')[1]}</span>
+              </span>
+              <span class="oss-counts">
+                {g.merged > 0 && <span class="oss-count merged"><Octicon state="merged" />{g.merged} merged</span>}
+                {g.open > 0 && <span class="oss-count open"><Octicon state="open" />{g.open} open</span>}
+              </span>
+              <span class="oss-chevron" aria-hidden="true"></span>
+            </summary>
+            <ul>
+              {g.prs.map((pr) => (
+                <li>
+                  <a href={pr.url} target="_blank" rel="noopener">
+                    <span class:list={['oss-state', pr.state]}><Octicon state={pr.state} />{pr.state === 'merged' ? 'Merged' : 'Open'}</span>
+                    <span class="oss-title">{pr.title}</span>
+                    <time datetime={pr.date}>{pr.state === 'merged' ? 'Merged' : 'Opened'} {fmt(pr.date)}</time>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a class="oss-repo-link" href={g.url} target="_blank" rel="noopener">View {g.repo} on GitHub</a>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap">© 2026 {site.name}</div></footer>
+</Base>

@@ -33,9 +33,9 @@ test.describe('reduced motion', () => {
 
 test('keyboard focus reaches the first card with a visible outline', async ({ page }) => {
   await page.goto('/');
-  // Logo, 3 nav links and 3 social links come before the first card.
+  // Logo, 3 nav links, 3 social links and the open source pill come before the first card.
   let onCard = false;
-  for (let i = 0; i < 8 && !onCard; i++) {
+  for (let i = 0; i < 9 && !onCard; i++) {
     await page.keyboard.press('Tab');
     onCard = await page.evaluate(() => document.activeElement === document.querySelector('.card'));
   }

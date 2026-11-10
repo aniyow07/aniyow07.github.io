@@ -1,6 +1,6 @@
 ---
 title: Prime gaps
-order: 7
+order: 8
 badge: Experiment
 summary: A C++ sieve generates 148,933 primes and their gaps, and an eight-page Streamlit dashboard explores them, from the Prime Number Theorem and gap statistics to the AKS test and Mersenne primes.
 meta: C++ + Python · 2026

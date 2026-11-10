@@ -1,6 +1,6 @@
 ---
 title: CompressiveVision
-order: 5
+order: 6
 badge: Research
 summary: Rebuilds images from compressed measurements with WGAN-GP, CBAM attention and DnCNN refinement, and encrypts the measurements over a simulated channel.
 meta: Python · 2026

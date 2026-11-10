@@ -4,6 +4,7 @@ const projects: Record<string, { title: string; repo: string }> = {
   archon: { title: 'Archon', repo: 'https://github.com/aniyow07/Archonn' },
   agentreel: { title: 'AgentReel', repo: 'https://github.com/aniyow07/AgenticReel' },
   winsearch: { title: 'Winsearch', repo: 'https://github.com/aniyow07/Winsearch' },
+  morphe: { title: 'Morphe', repo: 'https://github.com/aniyow07/Morphe' },
   halo: { title: 'Halo', repo: 'https://github.com/aniyow07/Halo' },
   compressivevision: { title: 'CompressiveVision', repo: 'https://github.com/Aniyow/CompressiveVision' },
   icebreaker: { title: 'IceBreaker', repo: 'https://github.com/aniyow07/IceBreaker' },

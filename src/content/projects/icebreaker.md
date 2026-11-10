@@ -1,6 +1,6 @@
 ---
 title: IceBreaker
-order: 6
+order: 7
 badge: Preservation
 summary: Makes a 2013 Android game run on modern 64-bit phones without changing its code, by running the original 32-bit libraries inside an ARM to AArch64 JIT with 267 imports reimplemented.
 meta: C++ · 2026

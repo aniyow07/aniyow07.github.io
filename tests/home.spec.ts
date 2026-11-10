@@ -13,7 +13,7 @@ test('hero', async ({ page }) => {
 test('cards link to write-ups', async ({ page }) => {
   await page.goto('/');
   const hrefs = await page.locator('.card').evaluateAll(els => els.map(e => e.getAttribute('href')));
-  expect(hrefs).toHaveLength(7);
+  expect(hrefs).toHaveLength(8);
   for (const h of hrefs) expect(h).toMatch(/^\/work\/[a-z]+\/$/);
 });
 
