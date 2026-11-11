@@ -12,3 +12,9 @@ test('open source repos expand to show their pull requests', async ({ page }) =>
     expect(href).toMatch(/^https:\/\/github\.com\/[^/]+\/[^/]+\/pull\/\d+$/);
   await expect(first.locator('.oss-state').first()).toHaveText(/^(Merged|Open)$/);
 });
+
+test('home sidebar has no stray template text', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.side')).not.toContainText(')}');
+  await expect(page.locator('.side .oss-pill')).toHaveCount(1);
+});
