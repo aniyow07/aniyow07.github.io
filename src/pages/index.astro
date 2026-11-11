@@ -8,14 +8,10 @@ import { getContributions } from '../data/oss';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const oss = await getContributions();
-const merged = oss.reduce((n, g) => n + g.merged, 0);
-const open = oss.reduce((n, g) => n + g.open, 0);
-// Top 3 repos with merged PRs (oss is already ranked by stars).
-const starred = oss.filter((g) => g.merged > 0).slice(0, 3);
 ---
 <Base title={`${site.name} | AI/ML engineer portfolio`} description="Projects in LLMs, agents, computer vision and fast tools.">
   <main class="wrap">
-    <Hero oss={oss.length > 0 ? { merged, open, repos: starred } : undefined} />
+    <Hero oss={oss} />
     <section class="grid" id="work">
       {projects.map((p) => <ProjectCard project={p} />)}
     </section>

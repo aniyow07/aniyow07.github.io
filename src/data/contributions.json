@@ -2,9 +2,9 @@
   {
     "repo": "pandas-dev/pandas",
     "url": "https://github.com/pandas-dev/pandas",
-    "stars": 50565,
-    "merged": 1,
-    "open": 2,
+    "stars": 50578,
+    "merged": 2,
+    "open": 1,
     "prs": [
       {
         "title": "BUG: groupby filter with dropna=False keeps NaN group (GH#44517)",
@@ -15,8 +15,8 @@
       {
         "title": "BUG: exact Series/DataFrame.quantile for datetimelike with linear/midpoint interpolation",
         "url": "https://github.com/pandas-dev/pandas/pull/71823",
-        "state": "open",
-        "date": "2026-11-01"
+        "state": "merged",
+        "date": "2026-11-10"
       },
       {
         "title": "TST: replace with no match keeps object dtype (GH#53539)",
@@ -29,7 +29,7 @@
   {
     "repo": "google/elephant-goldfish-model",
     "url": "https://github.com/google/elephant-goldfish-model",
-    "stars": 16889,
+    "stars": 17247,
     "merged": 1,
     "open": 0,
     "prs": [
@@ -44,7 +44,7 @@
   {
     "repo": "anefzaoui/misterdownloadmanager",
     "url": "https://github.com/anefzaoui/misterdownloadmanager",
-    "stars": 4997,
+    "stars": 5790,
     "merged": 2,
     "open": 0,
     "prs": [
@@ -65,7 +65,7 @@
   {
     "repo": "localsend/localsend",
     "url": "https://github.com/localsend/localsend",
-    "stars": 98209,
+    "stars": 98307,
     "merged": 0,
     "open": 1,
     "prs": [
@@ -80,7 +80,7 @@
   {
     "repo": "usestrix/strix",
     "url": "https://github.com/usestrix/strix",
-    "stars": 74783,
+    "stars": 74896,
     "merged": 0,
     "open": 1,
     "prs": [
@@ -95,7 +95,7 @@
   {
     "repo": "statsmodels/statsmodels",
     "url": "https://github.com/statsmodels/statsmodels",
-    "stars": 11745,
+    "stars": 11747,
     "merged": 0,
     "open": 1,
     "prs": [

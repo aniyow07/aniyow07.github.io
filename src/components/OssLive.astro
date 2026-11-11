@@ -1,0 +1,13 @@
+---
+// The build-time list's fingerprint and star counts, plus the script that
+// refreshes the open source card or page from GitHub in the visitor's browser.
+import { signature, type RepoGroup } from '../data/oss-core';
+
+interface Props { groups: RepoGroup[] }
+const { groups } = Astro.props;
+const data = JSON.stringify({ sig: signature(groups), stars: Object.fromEntries(groups.map((g) => [g.repo, g.stars])) });
+---
+<script type="application/json" id="oss-data" set:html={data.replace(/</g, '\u003c')} />
+<script>
+  import '../scripts/oss-live';
+</script>
